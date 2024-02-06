@@ -2,8 +2,30 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import sv_ttk
+import random
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+#Password Generator Project
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+def generate_password():
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
+
+    password_list = []
+
+    password_list += [random.choice(letters) for _ in range(nr_letters)]
+    password_list += [random.choice(symbols) for _ in range(nr_symbols)]
+    password_list += [random.choice(numbers) for _ in range(nr_numbers)]
+
+    random.shuffle(password_list)
+    generated_password = ''.join(password_list)
+
+    password.delete(0, END)
+    password.insert(0, generated_password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
@@ -46,7 +68,7 @@ password = ttk.Entry(width=23)
 password.grid(row=3, column=1, pady=5)
 
 add = ttk.Button(text='Add', width=42, command=save_password).grid(row=4, column=1, columnspan=2, pady=5)
-gen_pass = ttk.Button(text='Generate Password').grid(row=3, column=2)
+gen_pass = ttk.Button(text='Generate Password', command=generate_password).grid(row=3, column=2)
 
 sv_ttk.set_theme('light')
 window.mainloop()
