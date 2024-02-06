@@ -4,6 +4,7 @@ from tkinter import messagebox
 import sv_ttk
 import random
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #Password Generator Project
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -37,11 +38,21 @@ def save_password():
     if ws and em and pd:
         is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save')
         if is_ok:
-            with open('data.txt', 'a') as f:
-                to_write = f"{ws} | {em} | {pd}\n"
-                f.write(to_write)
-                website.delete(0, END)
-                password.delete(0, END)
+            new_entry = {
+                 ws: {
+                      "email": em,
+                      "password": pd
+                 }
+            }
+            with open('data.json', 'r') as f:
+                data = json.load(f)
+                data.update(new_entry)
+
+            with open('data.json', 'w') as f:
+                json.dump(data, f, indent=4)
+                
+            website.delete(0, END)
+            password.delete(0, END)
     else:
         messagebox.showwarning(title='Error', message="Please don't leave any fields empty!")
 
