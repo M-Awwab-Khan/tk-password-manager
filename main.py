@@ -1,9 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 import sv_ttk
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def save_password():
+    with open('data.txt', 'a') as f:
+        to_write = f"{website.get()} | {email.get()} | {password.get()}\n"
+        f.write(to_write)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -19,11 +24,16 @@ ttk.Label(text='Website: ').grid(row=1, column=0, pady=5)
 ttk.Label(text='Email/Username: ').grid(row=2, column=0, pady=5)
 ttk.Label(text='Password: ').grid(row=3, column=0, pady=5)
 
-website = ttk.Entry(width=42).grid(row=1, column=1, columnspan=2, pady=5)
-email = ttk.Entry(width=42).grid(row=2, column=1, columnspan=2, pady=5)
-password = ttk.Entry(width=23).grid(row=3, column=1, pady=5)
+website = ttk.Entry(width=42)
+website.grid(row=1, column=1, columnspan=2, pady=5)
+website.focus()
+email = ttk.Entry(width=42)
+email.grid(row=2, column=1, columnspan=2, pady=5)
+email.insert(0, 'awwabkhan@gmail.com')
+password = ttk.Entry(width=23)
+password.grid(row=3, column=1, pady=5)
 
-add = ttk.Button(text='Add', width=42).grid(row=4, column=1, columnspan=2, pady=5)
+add = ttk.Button(text='Add', width=42, command=save_password).grid(row=4, column=1, columnspan=2, pady=5)
 gen_pass = ttk.Button(text='Generate Password').grid(row=3, column=2)
 
 sv_ttk.set_theme('light')
