@@ -1,16 +1,24 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sv_ttk
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
-    with open('data.txt', 'a') as f:
-        to_write = f"{website.get()} | {email.get()} | {password.get()}\n"
-        f.write(to_write)
-    website.delete(0, END)
-    password.delete(0, END)
+
+    ws = website.get()
+    em = email.get()
+    pd = password.get()
+
+    is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save')
+    if is_ok:
+        with open('data.txt', 'a') as f:
+            to_write = f"{ws} | {em} | {pd}\n"
+            f.write(to_write)
+            website.delete(0, END)
+            password.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
