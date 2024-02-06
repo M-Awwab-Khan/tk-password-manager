@@ -60,6 +60,9 @@ def save_password():
     else:
         messagebox.showwarning(title='Error', message="Please don't leave any fields empty!")
 
+def search_password():
+    ...
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title('Password Manager')
@@ -74,8 +77,8 @@ ttk.Label(text='Website: ').grid(row=1, column=0, pady=5)
 ttk.Label(text='Email/Username: ').grid(row=2, column=0, pady=5)
 ttk.Label(text='Password: ').grid(row=3, column=0, pady=5)
 
-website = ttk.Entry(width=42)
-website.grid(row=1, column=1, columnspan=2, pady=5)
+website = ttk.Entry(width=23)
+website.grid(row=1, column=1, pady=5)
 website.focus()
 email = ttk.Entry(width=42)
 email.grid(row=2, column=1, columnspan=2, pady=5)
@@ -85,6 +88,7 @@ password.grid(row=3, column=1, pady=5)
 
 add = ttk.Button(text='Add', width=42, command=save_password).grid(row=4, column=1, columnspan=2, pady=5)
 gen_pass = ttk.Button(text='Generate Password', command=generate_password).grid(row=3, column=2)
+search_pass = ttk.Button(text='Search', command=search_password, width=15).grid(row=1, column=2)
 
 sv_ttk.set_theme('light')
 window.mainloop()
