@@ -44,13 +44,17 @@ def save_password():
                       "password": pd
                  }
             }
-            with open('data.json', 'r') as f:
-                data = json.load(f)
-                data.update(new_entry)
+            try:
+                with open('data.json', 'r') as f:
+                    data = json.load(f)
+                    data.update(new_entry)
+            except FileNotFoundError:
+                with open('data.json', 'w') as f:
+                    json.dump(new_entry, f, indent=4)
+            else:
+                with open('data.json', 'w') as f:
+                    json.dump(data, f, indent=4)
 
-            with open('data.json', 'w') as f:
-                json.dump(data, f, indent=4)
-                
             website.delete(0, END)
             password.delete(0, END)
     else:
