@@ -36,7 +36,7 @@ def save_password():
     em = email.get()
     pd = password.get()
     if ws and em and pd:
-        is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save')
+        is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save? ')
         if is_ok:
             new_entry = {
                  ws: {
@@ -61,8 +61,20 @@ def save_password():
         messagebox.showwarning(title='Error', message="Please don't leave any fields empty!")
 
 def search_password():
-    ...
-
+    try:
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        messagebox.showerror(title='File Error', message='Data file not found.')
+    else:
+        ws = website.get()
+        if ws:
+            if ws in data:
+                messagebox.showinfo(title='Found Entry', message=f"Email: {data[ws]['email']}\nPassword: {data[ws]['password']}")
+            else:
+                messagebox.showinfo(title='Not Found', message=f"Sorry! No entry exists for {ws}")
+        else:
+            messagebox.showerror(title='Empty Field', message='Please fill in Website field to search for')
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title('Password Manager')
