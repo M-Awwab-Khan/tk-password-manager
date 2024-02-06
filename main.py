@@ -11,14 +11,16 @@ def save_password():
     ws = website.get()
     em = email.get()
     pd = password.get()
-
-    is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save')
-    if is_ok:
-        with open('data.txt', 'a') as f:
-            to_write = f"{ws} | {em} | {pd}\n"
-            f.write(to_write)
-            website.delete(0, END)
-            password.delete(0, END)
+    if ws and em and pd:
+        is_ok = messagebox.askokcancel(title=ws, message=f'These are the details entered: \nEmail: {em}\nPassword: {pd}\nIs it ok to save')
+        if is_ok:
+            with open('data.txt', 'a') as f:
+                to_write = f"{ws} | {em} | {pd}\n"
+                f.write(to_write)
+                website.delete(0, END)
+                password.delete(0, END)
+    else:
+        messagebox.showwarning(title='Error', message="Please don't leave any fields empty!")
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
