@@ -9,6 +9,8 @@ def save_password():
     with open('data.txt', 'a') as f:
         to_write = f"{website.get()} | {email.get()} | {password.get()}\n"
         f.write(to_write)
+    website.delete(0, END)
+    password.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
